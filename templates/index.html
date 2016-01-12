@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ <title>Meta Data Extraction</title>
+ <link href="../static/css/bootstrap.css" rel="stylesheet" />
+ <link href="../static/css/bootstrap-theme.css" rel="stylesheet" />
+ <script src="../static/angular/angular.js"></script>
+ <script>
+  angular.module('urlExample', [])
+    .controller('ExampleController', ['$scope', function($scope) {
+      $scope.url = {
+        text: 'http://google.com'
+      };
+    }]);
+</script>
+</head>
+  <body ng-app="urlExample">
+	<div class="container">
+	<div class="col-sm-6 col-sm-offset-3">
+ 
+	<!-- PAGE HEADER -->
+	<div class="page-header"><h1>Meta Data Extraction</h1></div>
+    <!--h2>Hello {{ name }}!</h2-->
+	<form action="/formfill" method="POST" name="userForm" ng-controller="ExampleController">
+	<div class="form-group">
+		<label>URL</label>
+		<input type="url" name="input" class="form-control" ng-model="url.text" placeholder="Enter URL" ng-required="true">
+		<div role="alert">
+			<span class="error" ng-show="userForm.input.$error.required">
+			Required!</span>
+			<span class="error" ng-show="userForm.input.$error.url">
+			Not valid url!</span>
+		</div>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+  </body>
+</html>

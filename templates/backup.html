@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Meta Data Extraction</title>
+ <link href="../static/css/bootstrap.css" rel="stylesheet" />
+ <link href="../static/css/bootstrap-theme.css" rel="stylesheet" />
+ <script src="../static/angular/angular.js"></script>
+<script>
+var myapp = angular.module('myapp', []);
+
+myapp.controller('mainController', function ($scope) {
+
+ $scope.submitForm = function () {
+ 
+ // Set the 'submitted' flag to true
+ $scope.submitted = true;
+ 
+ if ($scope.userForm.input.$error.url) {
+ alert("Please enter a valid URL");
+ }
+ };
+ });
+</script>
+
+</head>
+<body ng-app="myapp" ng-controller="mainController">
+ <div class="container">
+ <div class="col-sm-8 col-sm-offset-2">
+ 
+ <!-- PAGE HEADER -->
+ <div class="page-header"><h1>Meta Data Extraction</h1></div>
+ 
+ <!-- FORM : YOU CAN DISABLE, HTML5 VALIDATION BY USING "novalidate" ATTRIBUTE-->
+ <form action="/Enter" method="POST" name="userForm" ng-controller="mainController" ng-submit="submitForm()" novalidate>
+ 
+ <!-- URL -->
+ <div class="form-group">
+ 
+ <label>URL</label>
+ <input type="url" name="input" class="form-control" ng-model="url.text" placeholder="Enter URL" ng-required="true">
+ </div>
+ 
+ <!-- ng-disabled FOR ENABLING AND DISABLING SUBMIT BUTTON -->
+ <!--<button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Register</button>-->
+ <button type="submit" class="btn btn-primary">Submit</button>
+ 
+ <div class="form-group">
+ <label>Page Title:</label>
+ <textarea class="form-control" name="title_text"></textarea>
+ </div>
+ 
+ 
+ </form>
+
+ </div>
+ </div>
+ <br />
+</body>
+</html>

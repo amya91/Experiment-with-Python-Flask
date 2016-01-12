@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Meta Data Extraction</title>
+ <link href="../static/css/bootstrap.css" rel="stylesheet" />
+ <link href="../static/css/bootstrap-theme.css" rel="stylesheet" />
+ <script src="../static/angular/angular.js"></script>
+</head>
+  <body>
+	<div class="container">
+	<div class="col-sm-6 col-sm-offset-3">
+ 
+	<!-- PAGE HEADER -->
+	<div class="page-header"><h1>Meta Data Extraction</h1></div>
+	<form action="/formfinal" method="POST" name="userForm2"-->
+	<div class="form-group">
+		<label>Edit Page Title</label>
+		<textarea type="text" name="editedtitle" class="form-control">{{pagetitle}}</textarea>
+		<label>Edit Meta Description</label>
+		<textarea type="text" name="editedmetadesc" class="form-control">{{metadesc}}</textarea>
+	</div>
+	<button type="submit" class="btn btn-primary">Submit</button>
+	
+	</form>
+  </body>
+</html>
