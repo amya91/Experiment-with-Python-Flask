@@ -1,6 +1,9 @@
 from bs4 import BeautifulSoup
 import requests
 from flask import Flask, render_template, redirect, request
+from flask import Flask
+from flask.ext.mysqldb import MySQL
+import MySQLdb
 #from flaskext.mysql import MySQL
 app = Flask(__name__)
 
@@ -18,7 +21,6 @@ def formfill():
     url = request.form['input']
     html = requests.get(url, headers={'Accept-Encoding': None}).text
     soup = BeautifulSoup(html,"html.parser")
-    global page_title,meta_desc
     if soup.find("title") is not None:
         page_title = soup.find("title").getText()
     else:
@@ -40,14 +42,26 @@ def formfinal():
     print url
     print edited_title
     print edited_metadesc
+    try:
+        db = MySQLdb.connect(host="localhost",    # your host, usually localhost
+                             user="root",         # your username
+                             passwd="qwerty123",  # your password
+                             db="db1")        # name of the data base
+        cur = db.cursor()
+        # Use all the SQL you like
+        cur.execute("INSERT into crawldata(url,title,metadesc)VALUES (%s,%s,%s)",(url.encode('utf-8'),edited_title.encode('utf-8'),edited_metadesc.encode('utf-8')))
+        db.commit()
+        cur.execute("SELECT * FROM crawldata")
+        # print all the first cell of all the rows
+        for row in cur.fetchall():
+            print row
+        db.close()
+
+    except Exception as e:
+        print 'E: ', e
     return redirect('/')
 
-"""mysql = MySQL()
-app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'root'
-app.config['MYSQL_DATABASE_DB'] = 'EmpData'
-app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-mysql.init_app(app)"""
 
 if __name__ == "__main__":
     app.run()
+                                                                                                                                                      1,1           Top
